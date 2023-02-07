@@ -5,22 +5,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- jquery cdn -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <style>
+        button {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         table,
         th,
         td {
-            border: 1px solid rgb(47, 184, 194);
+            border: 2px solid goldenrod;
             border-collapse: collapse;
-            padding: 6px;
+            padding: 8px;
+        }
+
+        .wrap {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <script>
     $.ajax({
-        url: "./609/class_609.json",
+        url: "./fruit_folder/fruit.json",
         dataType: "json",
         success: function (data) {
 
@@ -30,17 +45,17 @@
                 for (var i in data) {
                     var $id = data[i].id;
                     var $name = data[i].name;
-                    var $gender = data[i].gender;
-                    var $team = data[i].team;
+                    var $price = data[i].price;
+                    var $kg = data[i].kg;
 
-                    var row = $("<tr/>").append(
+                    var row1 = $("<tr/>").append(
                         $("<td/>").text($id),
                         $("<td/>").text($name),
-                        $("<td/>").text($gender),
-                        $("<td/>").text($team),
+                        $("<td/>").text($price),
+                        $("<td/>").text($kg),
                     );
 
-                    tb.append(row);
+                    tb.append(row1);
                 }
                 $(".wrap").append(tb);
             }
@@ -49,26 +64,19 @@
 </script>
 
 <body>
-    <div class="wrap"></div>
-
-    <!-- input -->
-    <br>
-    <input id="myInput" type="text" placeholder="Search..">
-    <button onclick="location.href='sub_fruit.html'">다음 목록</button>
-
+    <div class="wrap">
+        <h2>과일 목록</h2>
+        <!-- input -->
+        <span>과일 검색</span><input id="myInput" type="text" placeholder="Search.."><br>
+    </div>
+    <button onclick="location.href='index.html'">이전 목록</button>
     <script>
-        $('#myInput').on('keyup', function () {
+        $("#myInput").on('keyup', function () {
             var value = $(this).val();
-            $('.wrap tr').filter(function () {
+            $(".wrap tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             })
         })
-        // $('#myInput').on('keyup', function () {
-        //     var value = $(this).val();
-        //     $('.wrap tr td:nth-of-type(2)').filter(function () {
-        //         $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        //     })
-        // })
     </script>
 </body>
 
